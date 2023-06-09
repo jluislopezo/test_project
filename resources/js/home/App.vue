@@ -8,15 +8,14 @@
 		</v-app-bar>
 		<v-main>
 			<v-container>
-				Content Here
+				Content here
 				<!-- If using vue-router -->
-				<!-- <router-view></router-view> -->
+				<router-view></router-view>
 			</v-container>
 		</v-main>
 	</v-app>
 </template>
 
-<script setup></script>
 
 <style>
 .v-application {

@@ -10,6 +10,8 @@ import Vue from 'vue';
 import Vuetify from './vuetify';
 import App from './home/App.vue';
 
+window.Vue = Vue;
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -27,8 +29,33 @@ import App from './home/App.vue';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-new Vue({
+
+
+
+
+import VueRouter from 'vue-router';
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+import {routes} from './routes';
+ 
+Vue.use(VueRouter);
+Vue.use(VueAxios, axios);
+ 
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
+});
+ 
+const app = new Vue({
 	components: { app: App },
-	el: '#app',
+    el: '#app',
+    router: router,
+    render: h => h(App),
 	vuetify: Vuetify,
 });
+
+// new Vue({
+// 	components: { app: App },
+// 	el: '#app',
+// 	vuetify: Vuetify,
+// });
