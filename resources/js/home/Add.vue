@@ -24,54 +24,43 @@
             <v-form v-model="valid" @submit.prevent="create">
                 <v-container>
                 <v-row>
-                    <v-col
-                    cols="12"
-                    md="4"
-                    >
-                    <v-text-field
-                        v-model="user.first_name"
-                        :rules="nameRules"
-                        :counter="10"
-                        label="First name"
-                        required
-                    ></v-text-field>
+                    <v-col cols="12" md="4">
+                        <v-text-field
+                            v-model="user.first_name"
+                            :rules="nameRules"
+                            :counter="10"
+                            label="First name"
+                            required
+                        ></v-text-field>
                     </v-col>
 
-                    <v-col
-                    cols="12"
-                    md="4"
-                    >
-                    <v-text-field
-                        v-model="user.last_name"
-                        :rules="nameRules"
-                        :counter="10"
-                        label="Last name"
-                        required
-                    ></v-text-field>
+                    <v-col cols="12" md="4" >
+                        <v-text-field
+                            v-model="user.last_name"
+                            :rules="nameRules"
+                            :counter="10"
+                            label="Last name"
+                            required
+                        ></v-text-field>
                     </v-col>
 
-                    <v-col
-                    cols="12"
-                    md="4"
-                    >
-                    <v-text-field
-                        v-model="user.email"
-                        :rules="emailRules"
-                        label="E-mail"
-                        required
-                    ></v-text-field>
+                    <v-col cols="12" md="4">
+                        <v-text-field
+                            v-model="user.email"
+                            :rules="emailRules"
+                            label="E-mail"
+                            required
+                        ></v-text-field>
                     </v-col>
-                    <v-col
-                    cols="12"
-                    md="4"
-                    >
-                    <v-text-field
-                        v-model="user.password"
-                        :rules="passwordRules"
-                        :counter="7"
-                        label="Password"
-                        required
-                    ></v-text-field>
+
+                    <v-col cols="12" md="4" >
+                        <v-text-field
+                            v-model="user.password"
+                            :rules="passwordRules"
+                            :counter="7"
+                            label="Password"
+                            required
+                        ></v-text-field>
                     </v-col>
                 </v-row>
                     <div class="col-12">

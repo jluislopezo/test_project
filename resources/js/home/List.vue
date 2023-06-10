@@ -1,11 +1,10 @@
 <template>
     <div class="row">
         <div class="col-12 mb-2 text-end">
-            <!-- <router-link :to='{name:"userAdd"}' class="btn btn-primary">Create</router-link> -->
             <div>
                 <v-btn depressed color="success" @click="openModal">Create User </v-btn>
                 <modal-form-create :dialog="showModalCreate" :onClose="closeCreateModal"></modal-form-create>
-                <modal-form-edit :dialog="showModalEdit" :onClose="closeEditModal" :prop1="valor1"></modal-form-edit>
+                <modal-form-edit :dialog="showModalEdit" :onClose="closeEditModal" :prop1="valor1" ref="child"></modal-form-edit>
             </div>
         </div>
         <div class="col-12">
@@ -33,12 +32,7 @@
                                     <td>{{ user.email }}</td>
                                     <td>
                                         <v-btn depressed color="info" @click="openModalEdit(user.id)">Edit</v-btn>
-                                        <!-- <modal-form-edit :dialog="showModalEdit" :onClose="closeEditModal"></modal-form-edit> -->
-                                        <!-- <v-btn depressed color="info" @click="openModal" :to='{name:"userEdit",params:{id:user.id}}'>Edit </v-btn> -->
                                         <v-btn depressed color="error" @click="deleteUser(user.id)">Delete</v-btn>
-
-                                        <!-- <router-link :to='{name:"userEdit",params:{id:user.id}}' class="btn btn-success">Edit</router-link> -->
-                                        <!-- <button type="button" @click="deleteUser(user.id)" class="btn btn-danger">Delete</button> -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -138,13 +132,13 @@ export default {
             this.$router.push({name:"home", query:{page:pageIndex}});
 		},
         openModalEdit(id) {
-            console.log(id);
-            // this.userId = id;
             this.valor1 = id;
             this.showModalEdit = true;
+            this.$refs.child.showUser(id);
         },
         closeEditModal(){
             this.showModalEdit = false;
+            this.getUsers();
         },
 
 

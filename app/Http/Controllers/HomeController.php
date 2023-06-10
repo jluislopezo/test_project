@@ -75,7 +75,8 @@ class HomeController extends Controller
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->email = $request->email;
-
+            $user->password = bcrypt($request->password);
+            
             $user->save();
 
             return response()->json(['message' => 'User Updated Successfully!!']);
