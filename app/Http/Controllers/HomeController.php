@@ -9,9 +9,15 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::orderBy("id","ASC")->paginate(10);
-        // return view('home', compact('users'));
-        return response()->json($users);
+        $users = User::orderBy("id","DESC")->paginate(10);
+        $totalUsers = User::count();
+    
+        $response = [
+            'users' => $users,
+            'totalUsers' => $totalUsers
+        ];
+    
+        return response()->json($response);
     }
 
 /**

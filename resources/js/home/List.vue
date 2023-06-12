@@ -22,6 +22,7 @@
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
+                                <th>Created At</th>
                             </tr>
                         </thead>
                             <tbody v-if="users.length > 0">
@@ -30,6 +31,7 @@
                                     <td>{{ user.first_name }}</td>
                                     <td>{{ user.last_name }}</td>
                                     <td>{{ user.email }}</td>
+                                    <td>{{ user.created_at }}</td>
                                     <td>
                                         <v-btn depressed color="info" @click="openModalEdit(user.id)">Edit</v-btn>
                                         <v-btn depressed color="error" @click="deleteUser(user.id)">Delete</v-btn>
@@ -47,15 +49,22 @@
                     <div class="text-center">
                         <v-container>
                         <v-row justify="center">
+
                             <v-col cols="8">
-                            <v-container class="max-width">
-                                <v-pagination
-                                v-model="page"
-                                class="my-4"
-                                :length="pages" 
-                                @input="updatePage"
-                                ></v-pagination>
-                            </v-container>
+                                <v-container class="max-width">
+                                    <v-pagination
+                                    v-model="thisPage"
+                                    class="my-4"
+                                    :length=totalPages
+                                    @input="updatePage"
+                                    ></v-pagination>
+
+                                    <v-chip
+                                    color="blue"
+                                    outlined
+                                    pill
+                                    >Total {{ totalUsers }} users</v-chip>
+                                </v-container>
                             </v-col>
                         </v-row>
                         </v-container>
@@ -85,9 +94,12 @@ export default {
             users:[],
             showModalCreate: false,
             showModalEdit: false,
-            page: 1,
-            pages: 8,
-            valor1: this.valor1
+            page: this.thisPage,
+            pages: this.totalPages,
+            valor1: this.valor1,
+            totalUsers:0,
+            totalPages:0,
+            thisPage:0
         }
     },
     mounted(){
@@ -102,10 +114,14 @@ export default {
     methods:{
         async getUsers(){
 
+            this.thisPage = Number(this.$route.query.page);
+
             try {
                const response = await this.axios.get('/users' + '?page=' + this.$route.query.page);
-               this.users = response.data.data;
-                console.log(this.users);
+               this.totalUsers = response.data.totalUsers;
+               this.users = response.data.users.data;
+
+               this.totalPages = Math.ceil(response.data.totalUsers / 10) ;
 
             } catch (error) {
                 console.log(error)
@@ -127,6 +143,7 @@ export default {
         },
         closeCreateModal(){
             this.showModalCreate = false;
+            this.getUsers();
         },
 		updatePage: function(pageIndex) {
             this.$router.push({name:"home", query:{page:pageIndex}});

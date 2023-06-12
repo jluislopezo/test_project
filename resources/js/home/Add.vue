@@ -134,6 +134,12 @@
                     this.user.email= '';
                     this.user.password= '';
                     this.showDiv = false;
+                    if (this.$route.path !== '/') {
+                        this.$router.push({name:"home", query:{page:1}});
+                    }
+
+                    console.log(this.$route.path);
+                    
                 }
                 
             }).catch(error=>{
